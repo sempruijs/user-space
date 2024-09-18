@@ -46,6 +46,7 @@
           pkgs.rustc
           pkgs.cargo
           pkgs.rust-analyzer
+          pkgs.postgresql_16
         ];
 
         shellHook = ''
