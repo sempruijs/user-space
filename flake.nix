@@ -1,58 +1,58 @@
 {
-  description = "Rust backend project with devShell and nix run support";
+  description = "Svelte flake template";
 
-  # Inputs
   inputs = {
-    # Nixpkgs is needed for Rust and rust-analyzer
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    gitignore.url = "github:hercules-ci/gitignore.nix";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
+  outputs = inputs@{ self, nixpkgs, gitignore, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems =
+        [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      perSystem = { config, self', inputs', pkgs, system, lib, ... }:
+        let
+          inherit (gitignore.lib) gitignoreSource;
+          packageJSON = lib.importJSON ./package.json;
+        in {
+          packages = rec {
+            site-src = pkgs.mkYarnPackage rec {
+              name = "${packageJSON.name}-site-${version}";
+              version = packageJSON.version;
+              src = gitignoreSource ./site;
+              packageJson = "${src}/package.json";
+              yarnLock = "${src}/yarn.lock";
+              buildPhase = ''
+                yarn --offline build 
+              '';
+              distPhase = "true";
+            };
 
-  # Define outputs
-  outputs = { self, nixpkgs, flake-utils }: flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      # Package the Rust binary
-      packages.default = pkgs.stdenv.mkDerivation {
-        pname = "user-space-backend";
-        version = "0.1.0";
+            site = pkgs.writeShellApplication {
+              name = packageJSON.name;
 
-        # Build the project from the backend folder
-        src = ./.;
+              runtimeInputs = [ site-src pkgs.nodejs ];
 
-        buildInputs = [ pkgs.rustc pkgs.cargo ];
+              text = ''
+                node ${site-src}/libexec/${packageJSON.name}/deps/${packageJSON.name}/build
+              '';
+            };
 
-        buildPhase = ''
-          echo "Building the Rust backend project..."
-          cargo build --release --manifest-path ./backend/Cargo.toml
-        '';
+            default = site;
+          };
 
-        installPhase = ''
-          mkdir -p $out/bin
-          cp ./backend/target/release/user-space-backend $out/bin/
-        '';
-      };
-
-      # nix run target to execute the built binary
-      apps.default = {
-        type = "app";
-        program = "${self.packages.${system}.default}/bin/user-space-backend";
-      };
-
-      # Dev shell with rust-analyzer and Rust tools
-      devShell = pkgs.mkShell {
-        buildInputs = [
-          pkgs.rustc
-          pkgs.cargo
-          pkgs.rust-analyzer
-          pkgs.postgresql_16
-        ];
-
-        shellHook = ''
-          echo "Entering development shell for Rust backend project..."
-        '';
-      };
-    }
-  );
+          devShells = {
+            default = pkgs.mkShell {
+              buildInputs = (with pkgs; [
+                nixfmt
+                nodejs
+                yarn
+                nil
+                nodePackages.svelte-language-server
+                nodePackages.typescript-language-server
+              ]);
+            };
+          };
+        };
+    };
 }
