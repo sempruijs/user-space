@@ -1,7 +1,7 @@
 {
   description = "Website to get to know each other better";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?rev=75a5ebf473cd60148ba9aec0d219f72e5cf52519";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
@@ -14,8 +14,10 @@
           default = pkgs.mkShell {
               buildInputs = with pkgs; [
                 nodePackages.typescript
-                nodePackages.typescript-language-server
-                nodePackages.cspell
+                rustc
+                cargo
+                rust-analyzer
+                postgresql_16
               ];
           };
         };
