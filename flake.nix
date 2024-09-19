@@ -13,14 +13,14 @@
       perSystem = { config, self', inputs', pkgs, system, lib, ... }:
         let
           inherit (gitignore.lib) gitignoreSource;
-          packageJSON = lib.importJSON ./package.json;
+          packageJSON = lib.importJSON ./site/package.json;
         in {
           packages = rec {
             site-src = pkgs.mkYarnPackage rec {
               name = "${packageJSON.name}-site-${version}";
               version = packageJSON.version;
               src = gitignoreSource ./site;
-              packageJson = "${src}/package.json";
+              packageJson = "./site/package.json";
               yarnLock = "${src}/yarn.lock";
               buildPhase = ''
                 yarn --offline build 
