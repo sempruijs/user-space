@@ -1,35 +1,32 @@
-use sqlx::postgres::PgPoolOptions;
-use std::env;
 use dotenv::dotenv;
+use sqlx::{postgres::PgPoolOptions, PgPool};
+use std::env;
+
+//TODO: make age u32
+#[derive(Debug)]
+struct User {
+    name: String,
+    age: i32,
+    email: String,
+}
+
+async fn get_users(pool: &PgPool) -> Result<Vec<User>, sqlx::Error> {
+    let users = sqlx::query_as!(User, r#"SELECT name, age, email FROM users"#)
+        .fetch_all(pool)
+        .await?;
+
+    Ok(users)
+}
 
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
-    // Load environment variables from .env file
     dotenv().ok();
 
-    // Get the database URL from the environment
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let pool = PgPoolOptions::new().connect(&database_url).await?;
 
-    // Create a connection pool
-    let pool = PgPoolOptions::new()
-        .max_connections(5)  // Set the max number of connections
-        .connect(&database_url)
-        .await?;
-
-    // Fetch users from the database
-    let rows = sqlx::query!(
-        r#"
-        SELECT id, name, age, email
-        FROM users
-        "#
-    )
-    .fetch_all(&pool)
-    .await?;
-
-    // Print the results
-    for row in rows {
-        println!("Found user: {})", row.name.unwrap() );
-    }
+    let users = get_users(&pool).await?;
+    println!("{:#?}", users);
 
     Ok(())
 }
