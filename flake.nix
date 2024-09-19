@@ -17,6 +17,9 @@
                 rustc
                 cargo
                 rust-analyzer
+                clippy
+                rustfmt
+                vscode-extensions.rust-lang.rust-analyzer
                 postgresql_16
               ];
           };
