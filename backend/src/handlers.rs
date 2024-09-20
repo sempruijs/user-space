@@ -20,6 +20,17 @@ pub async fn list_users_handler(pool: PgPool) -> Result<impl warp::Reply, warp::
     }
 }
 
+pub async fn update_user_handler(
+    id: i32,
+    updated_user: User,
+    pool: PgPool,
+) -> Result<impl warp::Reply, warp::Rejection> {
+    match update_user(&pool, id, &updated_user).await {
+        Ok(_) => Ok(StatusCode::OK),
+        Err(_) => panic!("Error updating user"),
+    }
+}
+
 pub async fn delete_user_handler(
     id: i32,
     pool: PgPool,
