@@ -1,6 +1,7 @@
 use crate::User;
 use sqlx::PgPool;
 
+//// Inserts a new user into the users database
 pub async fn create_user(pool: &PgPool, u: User) -> Result<(), sqlx::Error> {
     async fn update_user(pool: &PgPool, id: i32, u: &User) -> Result<(), sqlx::Error> {
         sqlx::query!(
@@ -34,6 +35,7 @@ pub async fn create_user(pool: &PgPool, u: User) -> Result<(), sqlx::Error> {
     Ok(())
 }
 
+/// List all users from the database
 pub async fn read_users(pool: &PgPool) -> Result<Vec<User>, sqlx::Error> {
     let users = sqlx::query_as!(User, r#"SELECT name, age, email FROM users"#)
         .fetch_all(pool)
@@ -42,6 +44,7 @@ pub async fn read_users(pool: &PgPool) -> Result<Vec<User>, sqlx::Error> {
     Ok(users)
 }
 
+/// Update data of a user in the database
 pub async fn update_user(pool: &PgPool, id: i32, u: &User) -> Result<(), sqlx::Error> {
     sqlx::query!(
         r#"
@@ -60,6 +63,7 @@ pub async fn update_user(pool: &PgPool, id: i32, u: &User) -> Result<(), sqlx::E
     Ok(())
 }
 
+/// Removes a user from the database
 pub async fn delete_user(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
     let result = sqlx::query!(
         r#"
