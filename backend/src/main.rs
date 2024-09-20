@@ -34,6 +34,24 @@ async fn add_user(pool: &PgPool, u: &User) -> Result<(), sqlx::Error> {
     Ok(())
 }
 
+async fn update_user(pool: &PgPool, id: i32, u: &User) -> Result<(), sqlx::Error> {
+    sqlx::query!(
+        r#"
+        UPDATE users
+        SET name = $1, age = $2, email = $3
+        WHERE id = $4
+        "#,
+        u.name,
+        u.age,
+        u.email,
+        id
+    )
+    .execute(pool)
+    .await?;
+
+    Ok(())
+}
+
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
     dotenv().ok();
@@ -44,11 +62,11 @@ async fn main() -> Result<(), sqlx::Error> {
     let users = get_users(&pool).await?;
     println!("{:#?}", users);
 
-    // let new_user = User {
-    //     name: String::from("mama"),
-    //     age: 30,
-    //     email: String::from("mama@example.com"),
-    // };
-    // add_user(&pool, &new_user).await?;
+    let new_user = User {
+        name: String::from("papa"),
+        age: 34,
+        email: String::from("papa@example.com"),
+    };
+    update_user(&pool, 4, &new_user).await?;
     Ok(())
 }
