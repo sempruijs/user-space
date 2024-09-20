@@ -18,6 +18,24 @@ async fn get_users(pool: &PgPool) -> Result<Vec<User>, sqlx::Error> {
     Ok(users)
 }
 
+async fn delete_user(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
+    let result = sqlx::query!(
+        r#"
+        DELETE FROM users
+        WHERE id = $1
+        "#,
+        id
+    )
+    .execute(pool)
+    .await?;
+
+    if result.rows_affected() == 0 {
+        println!("No user found with id {}", id);
+    }
+
+    Ok(())
+}
+
 async fn add_user(pool: &PgPool, u: &User) -> Result<(), sqlx::Error> {
     sqlx::query!(
         r#"
@@ -62,11 +80,6 @@ async fn main() -> Result<(), sqlx::Error> {
     let users = get_users(&pool).await?;
     println!("{:#?}", users);
 
-    let new_user = User {
-        name: String::from("papa"),
-        age: 34,
-        email: String::from("papa@example.com"),
-    };
-    update_user(&pool, 4, &new_user).await?;
+    delete_user(&pool, 4).await?;
     Ok(())
 }
