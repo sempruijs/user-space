@@ -1,4 +1,32 @@
 body {
-    background-color: black;
-    color: white;
+    background-color: #EDE9E9;
+    color: black;
+    margin: 0;
+}
+
+.navbar {
+    background-color: #612940;
+    color: #E66C6C;
+    width: 100%;
+    height: 15vh;
+}
+
+.navbar-text {
+    font-size: 4em;
+    padding-left: 2vw;
+    padding-top: 2vh;
+}
+
+.logo {
+    margin-top: -25vh;
+    width: 100vw;
+    height: 30vh;
+}
+
+.sidebar {
+    background-color: #9D6381;
+    top: 0;
+    width: 15vw;
+    height: 100vh;
+    left: 0;
 }
