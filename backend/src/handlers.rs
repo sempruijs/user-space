@@ -1,7 +1,7 @@
 use crate::db::*;
-use crate::StatusCode;
 use crate::User;
 use sqlx::PgPool;
+use warp::http::StatusCode;
 
 pub async fn create_user_handler(
     user: User,
