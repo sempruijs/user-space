@@ -18,6 +18,22 @@ async fn get_users(pool: &PgPool) -> Result<Vec<User>, sqlx::Error> {
     Ok(users)
 }
 
+async fn add_user(pool: &PgPool, u: &User) -> Result<(), sqlx::Error> {
+    sqlx::query!(
+        r#"
+        INSERT INTO users (name, age, email)
+        VALUES ($1, $2, $3)
+        "#,
+        u.name,
+        u.age,
+        u.email
+    )
+    .execute(pool)
+    .await?;
+
+    Ok(())
+}
+
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
     dotenv().ok();
@@ -28,5 +44,11 @@ async fn main() -> Result<(), sqlx::Error> {
     let users = get_users(&pool).await?;
     println!("{:#?}", users);
 
+    // let new_user = User {
+    //     name: String::from("mama"),
+    //     age: 30,
+    //     email: String::from("mama@example.com"),
+    // };
+    // add_user(&pool, &new_user).await?;
     Ok(())
 }
