@@ -21,20 +21,20 @@ pub async fn serve_routes(pool: PgPool) {
         .and_then(list_users_handler);
 
     // PUT /users/:id - Update a user
-    // let update_user = warp::put()
-    //     .and(warp::path!("users" / i32))
-    //     .and(warp::body::json())
-    //     .and(pool_filter.clone())
-    //     .and_then(update_user_handler);
+    let update_user = warp::put()
+        .and(warp::path!("users" / i32))
+        .and(warp::body::json())
+        .and(pool_filter.clone())
+        .and_then(update_user_handler);
 
     // DELETE /users/:id - Delete a user
-    // let delete_user = warp::delete()
-    //     .and(warp::path!("users" / i32))
-    //     .and(pool_filter.clone())
-    //     .and_then(delete_user_handler);
+    let delete_user = warp::delete()
+        .and(warp::path!("users" / i32))
+        .and(pool_filter.clone())
+        .and_then(delete_user_handler);
 
     // Combine all the routes
-    let routes = create_user.or(list_users);
+    let routes = create_user.or(list_users).or(delete_user).or(update_user);
 
     // Start the server
     warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
