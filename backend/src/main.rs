@@ -80,6 +80,5 @@ async fn main() -> Result<(), sqlx::Error> {
     let users = get_users(&pool).await?;
     println!("{:#?}", users);
 
-    delete_user(&pool, 4).await?;
     Ok(())
 }
