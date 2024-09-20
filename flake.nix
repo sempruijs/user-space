@@ -42,6 +42,7 @@
               mkdir $out/ts
               cp ./index.html $out
               cp -r ./css $out/css
+              cp -r ./media $out/media
               cp ./ts/index.js $out/ts
             '';
           };
