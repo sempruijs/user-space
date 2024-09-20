@@ -19,3 +19,13 @@ pub async fn list_users_handler(pool: PgPool) -> Result<impl warp::Reply, warp::
         Err(_) => panic!("error while listing users"),
     }
 }
+
+pub async fn delete_user_handler(
+    id: i32,
+    pool: PgPool,
+) -> Result<impl warp::Reply, warp::Rejection> {
+    match delete_user(&pool, id).await {
+        Ok(_) => Ok(StatusCode::OK),
+        Err(_) => panic!("error while deleting user"),
+    }
+}
