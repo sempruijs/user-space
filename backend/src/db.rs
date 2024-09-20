@@ -63,7 +63,7 @@ pub async fn update_user(pool: &PgPool, id: i32, u: &User) -> Result<(), sqlx::E
     Ok(())
 }
 
-/// Removes a user from the database
+/// Removes an user from the database
 pub async fn delete_user(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
     let result = sqlx::query!(
         r#"

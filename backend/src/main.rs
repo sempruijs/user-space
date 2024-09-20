@@ -5,8 +5,10 @@ use warp::http::StatusCode;
 use warp::Filter;
 
 use crate::db::*;
+use crate::handlers::*;
 
 pub mod db;
+pub mod handlers;
 
 //TODO: make age u32
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -14,23 +16,6 @@ struct User {
     name: String,
     age: i32,
     email: String,
-}
-
-async fn create_user_handler(
-    user: User,
-    pool: PgPool,
-) -> Result<impl warp::Reply, warp::Rejection> {
-    match create_user(&pool, user).await {
-        Ok(_) => Ok(StatusCode::CREATED),
-        Err(_) => panic!("error while listing users"),
-    }
-}
-
-async fn list_users_handler(pool: PgPool) -> Result<impl warp::Reply, warp::Rejection> {
-    match read_users(&pool).await {
-        Ok(users) => Ok(warp::reply::json(&users)),
-        Err(_) => panic!("error while listing users"),
-    }
 }
 
 #[tokio::main]
