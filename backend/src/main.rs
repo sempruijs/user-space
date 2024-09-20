@@ -4,6 +4,10 @@ use std::env;
 use warp::http::StatusCode;
 use warp::Filter;
 
+use crate::db::*;
+
+pub mod db;
+
 //TODO: make age u32
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 struct User {
@@ -12,78 +16,18 @@ struct User {
     email: String,
 }
 
-async fn get_users(pool: &PgPool) -> Result<Vec<User>, sqlx::Error> {
-    let users = sqlx::query_as!(User, r#"SELECT name, age, email FROM users"#)
-        .fetch_all(pool)
-        .await?;
-
-    Ok(users)
-}
-
-async fn delete_user(pool: &PgPool, id: i32) -> Result<(), sqlx::Error> {
-    let result = sqlx::query!(
-        r#"
-        DELETE FROM users
-        WHERE id = $1
-        "#,
-        id
-    )
-    .execute(pool)
-    .await?;
-
-    if result.rows_affected() == 0 {
-        println!("No user found with id {}", id);
-    }
-
-    Ok(())
-}
-
-async fn add_user(pool: &PgPool, u: User) -> Result<(), sqlx::Error> {
-    sqlx::query!(
-        r#"
-        INSERT INTO users (name, age, email)
-        VALUES ($1, $2, $3)
-        "#,
-        u.name,
-        u.age,
-        u.email
-    )
-    .execute(pool)
-    .await?;
-
-    Ok(())
-}
-
-async fn update_user(pool: &PgPool, id: i32, u: &User) -> Result<(), sqlx::Error> {
-    sqlx::query!(
-        r#"
-        UPDATE users
-        SET name = $1, age = $2, email = $3
-        WHERE id = $4
-        "#,
-        u.name,
-        u.age,
-        u.email,
-        id
-    )
-    .execute(pool)
-    .await?;
-
-    Ok(())
-}
-
 async fn create_user_handler(
     user: User,
     pool: PgPool,
 ) -> Result<impl warp::Reply, warp::Rejection> {
-    match add_user(&pool, user).await {
+    match create_user(&pool, user).await {
         Ok(_) => Ok(StatusCode::CREATED),
         Err(_) => panic!("error while listing users"),
     }
 }
 
 async fn list_users_handler(pool: PgPool) -> Result<impl warp::Reply, warp::Rejection> {
-    match get_users(&pool).await {
+    match read_users(&pool).await {
         Ok(users) => Ok(warp::reply::json(&users)),
         Err(_) => panic!("error while listing users"),
     }
