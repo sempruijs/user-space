@@ -36,15 +36,12 @@ function load(): void {
 
         const isSignInForm = credentialForm.classList.contains("signin");
 
-        // console.log(data, isSignInForm);
+        if (isSignInForm) data.delete("email");
 
-       // TODO send data 
+        console.log(data);
+
+       // TODO send data
     });
-
-    // check if login credentials are saved
-    // and yes I am storing the password in plaintext in a cookie
-    // deal with it
-    const username = getCookie("username");
 
 }
 

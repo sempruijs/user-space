@@ -110,3 +110,7 @@ body {
 
     border: none;
 }
+
+#link-text {
+    cursor: pointer;
+}
