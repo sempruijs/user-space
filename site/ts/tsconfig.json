@@ -3,6 +3,6 @@
         "target": "ES2021",
         "outFile": "index.js",
         "lib": ["es2021", "DOM"],
-        "noImplicitAny": true,
-    }    
+        "noImplicitAny": true
+    }
 }
