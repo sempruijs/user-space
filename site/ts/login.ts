@@ -1,15 +1,18 @@
 // toggles between signin / signup form
 function toggleFormType(): void {
     const form = document.getElementById("credential-form");
-    const optionalContent = form.children.namedItem("optional-form-content");
+    const optionalContent = document.getElementById("optional-form-content");
+    const submitButton = document.getElementById("submit-button");
 
     if (form.classList.contains("signin")) {
         optionalContent.classList.remove("hidden");
         form.classList.remove("signin");
+        submitButton.innerHTML = "Sign Up";
     }
     else {
         optionalContent.classList.add("hidden");
         form.classList.add("signin");
+        submitButton.innerHTML = "Sign In";
     }
 }
 
