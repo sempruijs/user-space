@@ -1,8 +1,9 @@
 function load(): void {
 
     // check if login credentials are saved
-    console.log("script loaded");
+    // and yes I am storing the password in plaintext in a cookie
+    // deal with it
 
 }
 
-document.onload = load;
+document.body.onload = load;
