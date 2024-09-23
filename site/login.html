@@ -4,32 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
     <div id="form-wrapper">
         <!-- <h1>WARNING</h1> -->
         <!-- <p>For testing purposes the entered login information is not encrypted, and stored in plaintext in browser cookies. For your own good, do not use passwords you use often. Thank you for your consideration</p> -->
-        <form action="" id="sign-in-form" class="credential-form">
+        <form action="" id="credential-form" class="credential-form signin">
 
             <label for="username">username</label>
             <input type="text" name="username" id="username-input">
 
             <label for="password">password</label>
             <input type="password" name="password" id="password-input">
+            
+            <div id="optional-form-content" class="hidden">
+                <label for="email">email</label>
+                <input type="text" name="email" id="email-input">
+            </div>
 
-            <button type="submit"></button>
-
-        </form>
-        <form action="" id="sign-up-form" class="credential-form">
-
-            <label for="username">username</label>
-            <input type="text" name="username" id="username-input">
-
-            <label for="password">password</label>
-            <input type="password" name="password" id="password-input">
-
-            <button type="submit"></button>
+            <button type="submit">sign in</button>
 
         </form>
     </div>
