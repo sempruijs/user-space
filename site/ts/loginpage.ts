@@ -125,11 +125,9 @@ function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
     const isSignInForm = credentialForm.classList.contains("signin");
 
     if (isSignInForm) data.delete("email");
-    if (isSignInForm) data.delete("email");
 
     showLoading();
 
-    console.log(data);
     console.log(data);
 
     // TODO send data
