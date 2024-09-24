@@ -24,24 +24,95 @@ function toggleFormType(): void {
     }
 }
 
-function toggleLoading(): void {
+// show form and hide hide the rest
+function showForm(): void {
     const form = document.getElementById("credential-form");
     const postSubmitContent = document.getElementById("post-submit-content");
-    const loadingText = document.getElementById("loading-text");
-
-    if (form.classList.contains("invisible-content")) {
-        form.classList.remove("invisible-content");
-        postSubmitContent.classList.add("invisible-content");
-    } else {
-        form.classList.add("invisible-content");
-        postSubmitContent.classList.remove("invisible-content");
-        loadingText.style.content = 'Loading';
-    }
+    
+    form.classList.remove("invisible-content");
+    postSubmitContent.classList.add("invisible-content");
 }
 
-// shows a status header and description in the login container
-function showSubmitStatus(header: string, description: string) {
+function showLoading(): void {
+    const form = document.getElementById("credential-form");
+    const postSubmitContent = document.getElementById("post-submit-content");
+    const submitStatus = document.getElementById("submit-status");
+    const loadingAnimation = document.getElementById("loading-animation");
 
+    form.classList.add("invisible-content");
+    postSubmitContent.classList.remove("invisible-content");
+    submitStatus.classList.add("hidden");
+    loadingAnimation.classList.remove("hidden");
+}
+
+function showPostSubmitStatus(status?: SubmitStatus) {
+    setSubmitStatus(status);
+
+    const form = document.getElementById("credential-form");
+    const postSubmitContent = document.getElementById("post-submit-content");
+    const submitStatus = document.getElementById("submit-status");
+    const loadingAnimation = document.getElementById("loading-animation");
+
+    form.classList.add("invisible-content");
+    postSubmitContent.classList.remove("invisible-content");
+    submitStatus.classList.remove("hidden");
+    loadingAnimation.classList.add("hidden");
+}
+
+enum SubmitStatus {
+    success = 0,
+    wrongCredentials,
+    unknownCredentials,
+    timeout
+};
+
+// shows a status header and description in the login container
+function setSubmitStatus(status?: SubmitStatus) {
+    const domHeader = document.getElementById("status-header");
+    const domDescription = document.getElementById("status-description");
+
+    domHeader.style.color = "red";
+
+    switch (status) {
+
+        case SubmitStatus.success: {
+            
+            // nothing wrong, success text
+            domHeader.innerHTML = "Logged in!";
+            domHeader.style.color = "green";
+            domDescription.innerHTML = "Sucessfully logged in! Welcome";
+
+        } break;
+
+        case SubmitStatus.wrongCredentials: {
+            
+            domHeader.innerHTML = "Error";
+            domDescription.innerHTML = "Wrong credentials were provided";
+
+        } break;
+
+        case SubmitStatus.unknownCredentials: {
+            
+            domHeader.innerHTML = "Error";
+            domDescription.innerHTML= "Unknown username was provided, try signing up";
+
+        } break;
+
+        case SubmitStatus.timeout: {
+
+            domHeader.innerHTML = "Error";
+            domDescription.innerHTML = "Timed out";
+
+        } break;
+
+        default: {
+
+            domHeader.innerHTML = "Error";
+            domDescription.innerHTML = "Something went wrong";
+
+        }
+
+    }
 }
 
 function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
@@ -55,11 +126,16 @@ function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
 
     if (isSignInForm) data.delete("email");
 
-    toggleLoading();
+    showLoading();
 
     console.log(data);
 
     // TODO send data
+    
+    // DEBUG
+    setTimeout(() => {
+        showPostSubmitStatus(SubmitStatus.timeout);
+    }, 3000);
 }
 
 function load(): void {
