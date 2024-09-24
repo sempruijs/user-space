@@ -1,3 +1,10 @@
+/*
+
+This file contains code which is *supposed to be (convenient to be)* shared across all the different pages.
+
+*/
+
+
 // https://javascript.info/cookie
 
 // returns the cookie with the given name,
