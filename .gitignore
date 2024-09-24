@@ -2,3 +2,5 @@ result/
 .direnv/
 backend/target/
 **/*.js
+node_modules
+**/package-lock.json
