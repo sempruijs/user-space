@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="./css/login.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <div id="form-wrapper" class="fira-mono-regular">
+            <!-- <h1>WARNING</h1> -->
+            <!-- <p>For testing purposes the entered login information is not encrypted, and stored in plaintext in browser cookies. For your own good, do not use passwords you use often. Thank you for your consideration</p> -->
+            <form action="" id="credential-form" class="credential-form signin">
+
+                <p id="form-title">Please sign in</p>
+
+                <div id="form-input-wrapper">
+
+                    <label for="username">username</label>
+                    <input type="text" name="username" id="username-input">
+
+                    <label for="password">password</label>
+                    <input type="password" name="password" id="password-input">
+                    
+                    <div id="optional-form-content" class="hidden">
+                        <label for="email">email</label>
+                        <input type="text" name="email" id="email-input">
+                    </div>
+
+                    <button type="submit" id="submit-button">Sign In</button>
+
+                    <span style="color: rgb(179, 179, 179)">or <a onclick="toggleFormType()" style="color: blue;"><u id="link-text">sign up</u></a></span>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script src="./ts/util.js"></script>
+    <script src="./ts/login.js"></script>
+</body>
+</html>

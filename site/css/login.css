@@ -1,0 +1,119 @@
+.fira-mono-regular {
+    font-family: "Fira Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fira-mono-medium {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.fira-mono-bold {
+    font-family: "Fira Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #612940;
+}
+
+#main {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#credential-form {
+    text-align: center;
+}
+
+#form-title {
+    font-family: "Fira Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    margin: 0;
+}
+
+#form-wrapper {
+
+    position: relative;
+
+    background-color: white;
+
+    width: fit-content;
+    height: fit-content;
+
+    border: 1px solid black;
+}
+
+#form-input-wrapper {
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#credential-form input {
+    height: 2em;
+
+    width: 50vw;
+    max-width: 300px;;
+
+    font-family: "Fira Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: medium;
+}
+
+#credential-form label {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#optional-form-content:not(.hidden) {
+    display: flex;
+    flex-direction: column;
+}
+
+#submit-button {
+    margin-top: 2em;
+    margin-bottom: 1em;
+
+    height: 2em;
+
+    border: none;
+}
+
+#link-text {
+    cursor: pointer;
+}
