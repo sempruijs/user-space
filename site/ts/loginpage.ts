@@ -130,6 +130,11 @@ function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
 
     console.log(data);
 
+    // DEBUG
+    setTimeout(() => {
+        showPostSubmitStatus(SubmitStatus.timeout);
+    }, 3000);
+
     // TODO send data
 }
 
@@ -140,10 +145,6 @@ function load(): void {
     credentialForm.addEventListener("submit", (event) => interceptSubmit(credentialForm as HTMLFormElement, event));
     // TODO send data
     
-    // DEBUG
-    setTimeout(() => {
-        showPostSubmitStatus(SubmitStatus.timeout);
-    }, 3000);
 }
 
 
