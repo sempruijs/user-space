@@ -87,6 +87,14 @@ body {
     }
 }
 
+#submit-status {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
 #credential-form {
     text-align: center;
 }

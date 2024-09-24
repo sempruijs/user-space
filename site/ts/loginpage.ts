@@ -39,27 +39,36 @@ function toggleLoading(): void {
     }
 }
 
-function load(): void {
-
-    const credentialForm: HTMLElement = document.getElementById("credential-form");
-    credentialForm.addEventListener("submit", event => {
-        // intercept form action
-        event.preventDefault();
-    
-        // extract form data
-        const data = new FormData(credentialForm as HTMLFormElement);
-
-        const isSignInForm = credentialForm.classList.contains("signin");
-
-        if (isSignInForm) data.delete("email");
-
-        toggleLoading();
-
-        console.log(data);
-
-       // TODO send data
-    });
+// shows a status header and description in the login container
+function showSubmitStatus(header: string, description: string) {
 
 }
 
-document.body.onload = load;
+function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
+    // intercept form action
+    event.preventDefault();
+        
+    // extract form data
+    const data = new FormData(credentialForm as HTMLFormElement);
+
+    const isSignInForm = credentialForm.classList.contains("signin");
+
+    if (isSignInForm) data.delete("email");
+
+    toggleLoading();
+
+    console.log(data);
+
+    // TODO send data
+}
+
+function load(): void {
+
+    // attach submit listener
+    const credentialForm: HTMLElement = document.getElementById("credential-form");
+    credentialForm.addEventListener("submit", (event) => interceptSubmit(credentialForm as HTMLFormElement, event));
+
+}
+
+// document.body.onload causes html content to be loaded prematurely and a subsequent page flicker, and is not adviced
+document.addEventListener("DOMContentLoaded", load);
