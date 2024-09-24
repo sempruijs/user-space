@@ -123,12 +123,10 @@ function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
     const data = new FormData(credentialForm as HTMLFormElement);
 
     const isSignInForm = credentialForm.classList.contains("signin");
-    const isSignInForm = credentialForm.classList.contains("signin");
 
     if (isSignInForm) data.delete("email");
     if (isSignInForm) data.delete("email");
 
-    toggleLoading();
     showLoading();
 
     console.log(data);
@@ -150,13 +148,6 @@ function load(): void {
     }, 3000);
 }
 
-function load(): void {
-
-    // attach submit listener
-    const credentialForm: HTMLElement = document.getElementById("credential-form");
-    credentialForm.addEventListener("submit", (event) => interceptSubmit(credentialForm as HTMLFormElement, event));
-
-}
 
 // document.body.onload causes html content to be loaded prematurely and a subsequent page flicker, and is not adviced
 document.addEventListener("DOMContentLoaded", load);
