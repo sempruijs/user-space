@@ -123,13 +123,25 @@ function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
     const data = new FormData(credentialForm as HTMLFormElement);
 
     const isSignInForm = credentialForm.classList.contains("signin");
+    const isSignInForm = credentialForm.classList.contains("signin");
 
     if (isSignInForm) data.delete("email");
+    if (isSignInForm) data.delete("email");
 
+    toggleLoading();
     showLoading();
 
     console.log(data);
+    console.log(data);
 
+    // TODO send data
+}
+
+function load(): void {
+
+    // attach submit listener
+    const credentialForm: HTMLElement = document.getElementById("credential-form");
+    credentialForm.addEventListener("submit", (event) => interceptSubmit(credentialForm as HTMLFormElement, event));
     // TODO send data
     
     // DEBUG
