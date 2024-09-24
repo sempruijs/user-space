@@ -3,7 +3,6 @@
     <title>Profiles - NS Solutions</title>
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/profiles.css">
-    <script src="./ts/index.js"></script>
 </head>
 <body>
 <div class="navbar">
@@ -19,11 +18,14 @@
     </div>
 </div>
 <div class="profilesSection">
-    <div class="searchBar">
+    <div class="searchBarSection">
         <label>
-            <input type="search">
+            <input type="search" class="searchBar" id="search-bar">
+            <img src="media/search.svg" alt="search button" class="searchIcon" id="search-icon">
         </label>
     </div>
 </div>
+<script src="./ts/profiles.js"></script>
+<script src="./ts/index.js"></script>
 </body>
 </html>
