@@ -24,6 +24,21 @@ function toggleFormType(): void {
     }
 }
 
+function toggleLoading(): void {
+    const form = document.getElementById("credential-form");
+    const postSubmitContent = document.getElementById("post-submit-content");
+    const loadingText = document.getElementById("loading-text");
+
+    if (form.classList.contains("invisible-content")) {
+        form.classList.remove("invisible-content");
+        postSubmitContent.classList.add("invisible-content");
+    } else {
+        form.classList.add("invisible-content");
+        postSubmitContent.classList.remove("invisible-content");
+        loadingText.style.content = 'Loading';
+    }
+}
+
 function load(): void {
 
     const credentialForm: HTMLElement = document.getElementById("credential-form");
@@ -37,6 +52,8 @@ function load(): void {
         const isSignInForm = credentialForm.classList.contains("signin");
 
         if (isSignInForm) data.delete("email");
+
+        toggleLoading();
 
         console.log(data);
 
