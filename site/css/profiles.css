@@ -69,7 +69,22 @@ body {
 }
 
 .profile p {
-    margin: 0.5em 0;
+    margin: 0.3em 0;
+    font-family: Dubai, sans-serif;
+}
+
+.profile button {
+    cursor: pointer;
+    padding: 0.3em 2em;
+    border: 0 none transparent;
+    border-radius: 7px;
+}
+
+.profile button:hover {
+    border-color: black;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 5px 0 rgba(0,0,0,0.50);
 }
 
 #viewProfile {

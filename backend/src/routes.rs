@@ -37,5 +37,5 @@ pub async fn serve_routes(pool: PgPool) {
     let routes = create_user.or(list_users).or(delete_user).or(update_user);
 
     // Start the server
-    warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
+    warp::serve(routes).run(([0, 0, 0, 0], 3030)).await;
 }
