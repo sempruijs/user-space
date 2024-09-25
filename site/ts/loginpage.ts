@@ -140,6 +140,9 @@ function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
 
 function load(): void {
 
+    document.getElementById("link-text").addEventListener("click", (event) => toggleFormType());
+    document.getElementById("try-again-u").addEventListener("click", () => showForm());
+
     // attach submit listener
     const credentialForm: HTMLElement = document.getElementById("credential-form");
     credentialForm.addEventListener("submit", (event) => interceptSubmit(credentialForm as HTMLFormElement, event));
