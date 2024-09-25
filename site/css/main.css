@@ -53,11 +53,10 @@ body {
 
 .sidebar {
     background-color: #9D6381;
-    top: 0;
     width: 5vw;
     height: 100%;
-    left: 0;
     position: sticky;
+    top: 0;
     transition: width 0.3s ease-in-out;
     overflow: hidden;
     z-index: 1;
