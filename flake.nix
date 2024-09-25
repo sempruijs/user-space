@@ -40,7 +40,7 @@
             installPhase = ''
               mkdir $out
               mkdir $out/ts
-              cp ./*.html $out
+              cp ./index.html $out
               cp -r ./css $out/css
               cp -r ./media $out/media
               cp ./ts/index.js $out/ts
