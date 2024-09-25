@@ -34,7 +34,7 @@ pub async fn update_user_handler(
     pool: PgPool,
 ) -> Result<impl warp::Reply, warp::Rejection> {
     let now = current_time_iso8601();
-    println!("User with id: {} will be updated to: {:?}", id, updated_user);
+    println!("User with id: {} will be updated to: {:?} {}", id, updated_user, now);
     
     match update_user(&pool, id, &updated_user).await {
         Ok(_) => {
@@ -49,6 +49,10 @@ pub async fn delete_user_handler(
     id: i32,
     pool: PgPool,
 ) -> Result<impl warp::Reply, warp::Rejection> {
+    let now = current_time_iso8601();
+    println!("User with id: {} will be updated to: {:?}", id, updated_user);
+
+    println!("User with id: {} deleted. ({})", id, now);
     match delete_user(&pool, id).await {
         Ok(_) => Ok(StatusCode::OK),
         Err(_) => panic!("error while deleting user"),
