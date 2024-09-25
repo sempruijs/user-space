@@ -87,6 +87,31 @@ body {
     -moz-box-shadow: 0 0 5px 0 rgba(0,0,0,0.50);
 }
 
+.addContact {
+    top: 1em;
+    left: 1em;
+}
+
+.sendMessage {
+    top: 1em;
+    right: 1em;
+}
+
+.addContact, .sendMessage {
+    position: absolute;
+    cursor: pointer;
+    padding: 0.3em 2em;
+    border: 0 none transparent;
+    border-radius: 7px;
+}
+
+.addContact:hover, .sendMessage:hover {
+    border-color: black;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 5px 0 rgba(0,0,0,0.50);
+}
+
 #viewProfile {
     background-color: #612940;
     color: white;
@@ -109,3 +134,141 @@ body {
 .hidden {
     display: none;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    margin: auto;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Dubai', sans-serif;
+    color: #333;
+}
+
+.modal-content img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-content h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #612940;
+    margin-bottom: -5%;
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-content h3 {
+    font-size: 1.3em;
+    color: #612940;
+    margin-bottom: -3%;
+}
+
+.modal-content h4 {
+    font-size: 1.2em;
+    color: #9D6381;
+    margin-bottom: -4.5%;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #612940;
+    cursor: pointer;
+}
+
+.modal-content .close:hover {
+    color: #9D6381;
+}
+
+.modal-content .email {
+    font-size: 1.1em;
+    font-style: italic;
+    color: #4e2133;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-content h4 + p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.modal-content h4 {
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-content img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.8em;
+    }
+
+    .modal-content p,
+    .modal-content h3,
+    .modal-content h4 {
+        font-size: 1em;
+    }
+}
+
