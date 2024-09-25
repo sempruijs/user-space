@@ -36,7 +36,9 @@ async function checkLocalCredentials(): Promise<boolean> {
         let username = getCookie("username");
 
         if (username === undefined) resolve(false);
-        else resolve(true);
+
+        // check username with server
+        fetch()
 
     });
 }
@@ -45,13 +47,10 @@ async function checkLocalCredentials(): Promise<boolean> {
  * checks if local login information is valid. If yes, return. If no, send user to login page
  */
 async function requestLogin(): Promise<void> {
-
     const loginValid = await checkLocalCredentials();
 
     if (loginValid) return;
 
     // login is invalid, send user to login page
-    let newUrl = new URL(window.location.href).host + "/login.html";
-    console.log(newUrl);
-
+    window.location.replace("login.html");
 }
