@@ -158,6 +158,8 @@
           packages = [
             # pkgs.ripgrep
             pkgs.sqlx-cli
+            pkgs.typescript
+            pkgs.nodePackages_latest.typescript-language-server
           ];
         };
       });
