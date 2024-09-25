@@ -33,8 +33,14 @@ pub async fn update_user_handler(
     updated_user: User,
     pool: PgPool,
 ) -> Result<impl warp::Reply, warp::Rejection> {
+    let now = current_time_iso8601();
+    println!("User with id: {} will be updated to: {:?}", id, updated_user);
+    
     match update_user(&pool, id, &updated_user).await {
-        Ok(_) => Ok(StatusCode::OK),
+        Ok(_) => {
+            println!("User updated");
+            Ok(StatusCode::OK)
+        },
         Err(_) => panic!("Error updating user"),
     }
 }
