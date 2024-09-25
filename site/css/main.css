@@ -117,4 +117,38 @@ body {
     -moz-box-shadow: 0 0 10px 0 rgba(0,0,0,0.74);
 }
 
+/* Button container styles */
+.button-container {
+    display: flex;
+    justify-content:center;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+/* Large button styles */
+.btn {
+    font-size: 1.5rem;
+    padding: 20px;
+    width: 400px;
+    height: 750px;
+    background-color: #E66C6C; /* Matches the color scheme */
+    color: white;
+    justify-content:flex-start ;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+}
+
+/* Hover effect */
+.btn:hover {
+    background-color: #612940; /* Darker shade to match your navbar */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+
+
 
