@@ -28,7 +28,7 @@
         inherit (pkgs) lib;
 
         craneLib = crane.mkLib pkgs;
-        src = craneLib.cleanCargoSource ./backend;
+        src = ./.;
 
         # Common arguments can be set here to avoid repeating them later
         commonArgs = {
