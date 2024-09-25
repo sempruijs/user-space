@@ -13,6 +13,9 @@ pub async fn create_user_handler(
     user: User,
     pool: PgPool,
 ) -> Result<impl warp::Reply, warp::Rejection> {
+    let now = current_time_iso8601();
+    println!("New user created: {:?}  ({})", user, now);
+
     match create_user(&pool, user).await {
         Ok(_) => Ok(StatusCode::CREATED),
         Err(_) => panic!("error while listing users"),
@@ -50,9 +53,8 @@ pub async fn delete_user_handler(
     pool: PgPool,
 ) -> Result<impl warp::Reply, warp::Rejection> {
     let now = current_time_iso8601();
-    println!("User with id: {} will be updated to: {:?}", id, updated_user);
-
     println!("User with id: {} deleted. ({})", id, now);
+    
     match delete_user(&pool, id).await {
         Ok(_) => Ok(StatusCode::OK),
         Err(_) => panic!("error while deleting user"),
