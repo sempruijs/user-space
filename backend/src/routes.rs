@@ -7,6 +7,11 @@ pub async fn serve_routes(pool: PgPool) {
     // Clone the pool to share it across routes
     let pool_filter = warp::any().map(move || pool.clone());
 
+    let cors = warp::cors()
+        .allow_any_origin() // Allow requests from any origin
+        .allow_header("content-type") // Allow specific headers
+        .allow_methods(vec!["GET", "POST", "PUT", "DELETE"]); // Allow specific methods
+
     // POST /users - Create a new user
     let create_user = warp::post()
         .and(warp::path("users"))
@@ -34,7 +39,7 @@ pub async fn serve_routes(pool: PgPool) {
         .and_then(delete_user_handler);
 
     // Combine all the routes
-    let routes = create_user.or(list_users).or(delete_user).or(update_user);
+    let routes = create_user.or(list_users).or(delete_user).or(update_user).with(cors);
 
     println!("Starting server");
     warp::serve(routes).run(([0, 0, 0, 0], 3030)).await;
