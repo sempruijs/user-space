@@ -117,6 +117,25 @@
 
         packages = {
           default = my-crate;
+          site = pkgs.stdenv.mkDerivation {
+            buildInputs = with pkgs; [ nodePackages.typescript ];
+            src = ./site;
+            name = "site";
+            buildPhase = ''
+              cd ts
+              tsc --build
+              cd ..
+            '';
+
+            installPhase = ''
+              mkdir $out
+              mkdir $out/ts
+              cp ./index.html $out
+              cp -r ./css $out/css
+              cp -r ./media $out/media
+              cp ./ts/index.js $out/ts
+            '';
+          };
         } // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
           my-crate-llvm-coverage = craneLibLLvmTools.cargoLlvmCov (commonArgs // {
             inherit cargoArtifacts;
