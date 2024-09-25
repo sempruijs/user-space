@@ -60,14 +60,33 @@
 
         # Build the actual crate itself, reusing the dependency
         # artifacts from above.
-        my-crate = craneLib.buildPackage (commonArgs // {
+        backend = craneLib.buildPackage (commonArgs // {
           inherit cargoArtifacts;
         });
+        site = pkgs.stdenv.mkDerivation {
+            buildInputs = with pkgs; [ nodePackages.typescript ];
+            src = ./site;
+            name = "site";
+            buildPhase = ''
+              cd ts
+              tsc --build
+              cd ..
+            '';
+
+            installPhase = ''
+              mkdir $out
+              mkdir $out/ts
+              cp ./index.html $out
+              cp -r ./css $out/css
+              cp -r ./media $out/media
+              cp ./ts/index.js $out/ts
+            '';
+          };
       in
       {
         checks = {
           # Build the crate as part of `nix flake check` for convenience
-          inherit my-crate;
+          inherit backend;
 
           # Run clippy (and deny all warnings) on the crate source,
           # again, reusing the dependency artifacts from above.
@@ -116,26 +135,8 @@
         };
 
         packages = {
-          default = my-crate;
-          site = pkgs.stdenv.mkDerivation {
-            buildInputs = with pkgs; [ nodePackages.typescript ];
-            src = ./site;
-            name = "site";
-            buildPhase = ''
-              cd ts
-              tsc --build
-              cd ..
-            '';
-
-            installPhase = ''
-              mkdir $out
-              mkdir $out/ts
-              cp ./index.html $out
-              cp -r ./css $out/css
-              cp -r ./media $out/media
-              cp ./ts/index.js $out/ts
-            '';
-          };
+          default = backend;
+          site = site;
         } // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
           my-crate-llvm-coverage = craneLibLLvmTools.cargoLlvmCov (commonArgs // {
             inherit cargoArtifacts;
@@ -143,7 +144,7 @@
         };
 
         apps.default = flake-utils.lib.mkApp {
-          drv = my-crate;
+          drv = backend;
         };
 
         devShells.default = craneLib.devShell {
