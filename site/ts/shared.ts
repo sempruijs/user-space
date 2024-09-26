@@ -46,7 +46,7 @@ async function checkUsernameExists(username: string): Promise<boolean> {
             .then(response => {
     
                 response.forEach((value: User, index: number) => {
-                    if (value.name === username) 
+                    if (value.name.toLowerCase() === username.toLowerCase()) 
                     {
                         resolve(true);
                         return;
