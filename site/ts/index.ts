@@ -59,4 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'scrum.html';
         });
     }
+
+
+    
+
+
 });
