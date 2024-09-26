@@ -75,7 +75,28 @@ async function requestLogin(): Promise<void> {
     window.location.replace("login.html");
 }
 
-(window as any).custom = {
-    getCookie, setCookie,
-    checkUsernameExists, requestLogin
-};
+async function addUser(name: string, age: number, mail: string): Promise<boolean> {
+    try {
+        const response = await fetch('http://78.47.165.157:3030/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                age: age,
+                email: mail
+            })
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+        return true;
+    } catch (error) {
+        return false;
+    }
+}

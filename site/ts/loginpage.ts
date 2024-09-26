@@ -60,10 +60,12 @@ function showPostSubmitStatus(status?: SubmitStatus) {
 }
 
 enum SubmitStatus {
-    success = 0,
+    login = 0,
+    signup,
     wrongCredentials,
     unknownCredentials,
-    timeout
+    timeout,
+    genericError
 };
 
 // shows a status header and description in the login container
@@ -75,12 +77,27 @@ function setSubmitStatus(status?: SubmitStatus) {
 
     switch (status) {
 
-        case SubmitStatus.success: {
+        case SubmitStatus.login: {
             
             // nothing wrong, success text
             domHeader.innerHTML = "Logged in!";
             domHeader.style.color = "green";
             domDescription.innerHTML = "Sucessfully logged in! Welcome";
+            document.getElementById("try-again-text").classList.add("hidden");
+
+            setTimeout(() => {
+
+                window.location.href = "index.html";
+
+            }, 1000);
+
+        } break;
+
+        case SubmitStatus.signup: {
+
+            domHeader.innerHTML = "Signed up!";
+            domHeader.style.color = "green";
+            domDescription.innerHTML = "Sucessfully signed up! Welcome";
             document.getElementById("try-again-text").classList.add("hidden");
 
             setTimeout(() => {
@@ -112,12 +129,12 @@ function setSubmitStatus(status?: SubmitStatus) {
 
         } break;
 
-        default: {
+        case SubmitStatus.genericError: {
 
             domHeader.innerHTML = "Error";
             domDescription.innerHTML = "Something went wrong";
 
-        }
+        } break;
 
     }
 }
@@ -131,30 +148,49 @@ async function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEve
 
     const isSignInForm = credentialForm.classList.contains("signin");
 
-    if (isSignInForm) data.delete("email");
-
     showLoading();
 
-    // console.log(data);
+    if (!isSignInForm) {
 
-    // TODO send data
+        const username = data.get("username") as string;
+        const age = (data.get("age") as unknown) as number; // scuffed typescript >_>
+        const mail = data.get("email") as string;
 
-    const username = data.get("username") as string;
+        if (username === undefined || age === undefined || mail === undefined) {
+            showPostSubmitStatus(SubmitStatus.genericError);
+            return;
+        }
 
-    if (username === undefined) {
-        showPostSubmitStatus(SubmitStatus.unknownCredentials);
-        return;
-    }
+        const success = await addUser(username, age, mail);
 
+        if (success) {
+            showPostSubmitStatus(SubmitStatus.signup);
+        } else {
+            showPostSubmitStatus(SubmitStatus.genericError);
+        }
 
-    const success = await checkUsernameExists(username);
-
-    if (success) {
-        showPostSubmitStatus(SubmitStatus.success);
-        return;
     } else {
-        showPostSubmitStatus(SubmitStatus.wrongCredentials);
-        return;
+        // remove email property
+        data.delete("email");
+        data.delete("age");
+    
+        const username = data.get("username") as string;
+    
+        if (username === undefined) {
+            showPostSubmitStatus(SubmitStatus.unknownCredentials);
+            return;
+        }
+    
+    
+        const success = await checkUsernameExists(username);
+    
+        if (success) {
+            showPostSubmitStatus(SubmitStatus.login);
+            return;
+        } else {
+            showPostSubmitStatus(SubmitStatus.wrongCredentials);
+            return;
+        }
     }
 
 }
