@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //the big menu buttons
     const lrgeHboIbtn= document.getElementById('lrgeHboIbtn');
-    const lrgeProfielenBtn = document.getElementById('lrgeProfielenBtn')
+    const lrgeProfielenBtn = document.getElementById('lrgeProfielenbtn')
     const lrgePartnersBtn = document.getElementById('lrgePartnersbtn')
     const lrgeScrumBtn = document.getElementById('lrgeScrumBtn')
 
