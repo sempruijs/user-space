@@ -81,6 +81,13 @@ function setSubmitStatus(status?: SubmitStatus) {
             domHeader.innerHTML = "Logged in!";
             domHeader.style.color = "green";
             domDescription.innerHTML = "Sucessfully logged in! Welcome";
+            document.getElementById("try-again-text").classList.add("hidden");
+
+            setTimeout(() => {
+
+                window.location.href = "index.html";
+
+            }, 1000);
 
         } break;
 
@@ -115,7 +122,7 @@ function setSubmitStatus(status?: SubmitStatus) {
     }
 }
 
-function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
+async function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
     // intercept form action
     event.preventDefault();
         
@@ -128,14 +135,28 @@ function interceptSubmit(credentialForm: HTMLFormElement, event: SubmitEvent) {
 
     showLoading();
 
-    console.log(data);
-
-    // DEBUG
-    setTimeout(() => {
-        showPostSubmitStatus(SubmitStatus.timeout);
-    }, 3000);
+    // console.log(data);
 
     // TODO send data
+
+    const username = data.get("username") as string;
+
+    if (username === undefined) {
+        showPostSubmitStatus(SubmitStatus.unknownCredentials);
+        return;
+    }
+
+
+    const success = await checkUsernameExists(username);
+
+    if (success) {
+        showPostSubmitStatus(SubmitStatus.success);
+        return;
+    } else {
+        showPostSubmitStatus(SubmitStatus.wrongCredentials);
+        return;
+    }
+
 }
 
 function load(): void {
