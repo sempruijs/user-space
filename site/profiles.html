@@ -17,6 +17,7 @@
         <button class="sb-btn" id="home-btn">Home</button>
     </div>
 </div>
+
 <div class="profilesSection">
     <div class="searchBarSection">
         <label>
@@ -24,7 +25,80 @@
             <img src="media/search.svg" alt="search button" class="searchIcon" id="search-icon">
         </label>
     </div>
+
+    <div class="profilesGrid">
+        <div class="profile">
+            <img src="media/pfp.png" alt="profile picture" class="profilePicture">
+            <a href="intent://vnd.android.cursor.dir/raw_contact/#Intent;action=android.intent.action.INSERT;S.email=randomMail@gmail.com;S.phone=+31 6 123456789end;">
+                <img src="media/add-contact.svg" alt="add contact" class="addContact">
+            </a>
+            <a href="mailto:randomMail@gmail.com?">
+                <img src="media/message.svg" alt="send message" class="sendMessage">
+            </a>
+            <p>Loading...</p>
+            <p>Loading...</p>
+            <button id="viewProfile1">Loading...</button>
+        </div>
+
+        <div class="profile">
+            <img src="media/pfp.png" alt="profile picture" class="profilePicture">
+            <a href="intent://vnd.android.cursor.dir/raw_contact/#Intent;action=android.intent.action.INSERT;S.email=randomMail@gmail.com;S.phone=+31 6 123456789end;">
+                <img src="media/add-contact.svg" alt="add contact" class="addContact">
+            </a>
+            <a href="mailto:randomMail@gmail.com?">
+                <img src="media/message.svg" alt="send message" class="sendMessage">
+            </a>
+            <p>Loading...</p>
+            <p>Loading...</p>
+            <button id="viewProfile2">Loading...</button>
+        </div>
+
+        <div class="profile">
+            <img src="media/pfp.png" alt="profile picture" class="profilePicture">
+            <a href="intent://vnd.android.cursor.dir/raw_contact/#Intent;action=android.intent.action.INSERT;S.email=randomMail@gmail.com;S.phone=+31 6 123456789end;">
+                <img src="media/add-contact.svg" alt="add contact" class="addContact">
+            </a>
+            <a href="mailto:randomMail@gmail.com?">
+                <img src="media/message.svg" alt="send message" class="sendMessage">
+            </a>
+            <p>Loading...</p>
+            <p>Loading...</p>
+            <button id="viewProfile3">Loading...</button>
+        </div>
+
+        <div class="profile">
+            <img src="media/pfp.png" alt="profile picture" class="profilePicture">
+            <a href="intent://vnd.android.cursor.dir/raw_contact/#Intent;action=android.intent.action.INSERT;S.email=randomMail@gmail.com;S.phone=+31 6 123456789end;">
+                <img src="media/add-contact.svg" alt="add contact" class="addContact">
+            </a>
+            <a href="mailto:randomMail@gmail.com?">
+                <img src="media/message.svg" alt="send message" class="sendMessage">
+            </a>
+            <p>Loading...</p>
+            <p>Loading...</p>
+            <button id="viewProfile4">Loading...</button>
+        </div>
+    </div>
 </div>
+
+<div id="profileModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <img src="media/pfp.png" alt="profile picture">
+        <h2>Full Name</h2>
+        <p>Department/Expertise</p>
+        <h3>Phone Number</h3>
+        <p>+31 6 123456789</p>
+        <h3>E-Mail</h3>
+        <p>randomMail@gmail.com</p>
+        <h3>Projects</h3>
+        <h4>Current</h4>
+        <p>User-Space</p>
+        <h4>Recently Finished</h4>
+        <p>Website for local shop</p>
+    </div>
+</div>
+
 <script src="./ts/profiles.js"></script>
 <script src="./ts/index.js"></script>
 </body>

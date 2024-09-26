@@ -18,6 +18,7 @@ struct User {
 
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
+    println!("Starting user space backend");
     dotenv().ok();
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
