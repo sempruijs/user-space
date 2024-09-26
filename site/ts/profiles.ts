@@ -37,31 +37,6 @@ function closeModal(modal: HTMLElement) {
     modal.classList.add('hidden');
 }
 
-async function addUser(name: string, age: number, mail: string): Promise<void> {
-    try {
-        const response = await fetch('http://78.47.165.157:3030/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                age: age,
-                email: mail
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to add user: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log('User added:', data);
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
 async function main() {
     const users = await getUsers();
     console.log("Length of users: " + users.length);
