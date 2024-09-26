@@ -11,4 +11,11 @@ jobs:
       - run: cd ${{ github.workspace }}
       - uses: cachix/install-nix-action@v18
       - run: nix build .#site -L
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: cd ${{ github.workspace }}
+      - uses: cachix/install-nix-action@v18
+      - run: nix build .#checks.x86_64-linux.backend -L
  

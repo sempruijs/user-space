@@ -120,7 +120,11 @@ body {
 /* Button container styles */
 .button-container {
     display: flex;
+
     justify-content: center;
+
+    justify-content:center;
+
     gap: 50px;
     margin-top: 50px;
 }
@@ -137,10 +141,19 @@ body {
     flex-direction: column;
     justify-content: flex-start; /* Aligns items to the start (top) of the container */
     align-items: center;
+
+    background-color: #E66C6C; /* Matches the color scheme */
+    color: white;
+    justify-content:flex-start ;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+
     position: relative;
     overflow: hidden;
     font-family: 'Roundelay';
@@ -160,10 +173,12 @@ body {
     width: 200px; /* Increased size */
     height: 200px; /* Increased size */
     margin: auto; /* This centers the icon vertically in the remaining space */
+
 }
 
 /* Hover effect */
 .btn:hover {
+
     background-color: #612940;
     transform: scale(1.05);
 }
@@ -229,4 +244,12 @@ body {
     font-family: '
     /* ... existing button styles ... */
 }
+
+    background-color: #612940; /* Darker shade to match your navbar */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+
+
+
 
